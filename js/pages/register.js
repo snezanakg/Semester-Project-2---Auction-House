@@ -33,26 +33,24 @@ export async function renderRegister(app) {
 
     const form = Object.fromEntries(new FormData(formEl));
 
-    // only @stud.noroff.no can register
     if (!form.email.endsWith("@stud.noroff.no")) {
       errEl.textContent = "Email must end with @stud.noroff.no";
       return;
     }
 
-    // Build payload — avatar must be an OBJECT, not a string
     const payload = {
       name: form.name.trim(),
       email: form.email.trim(),
-      password: form.password, // API handles hashing
-      avatar: form.avatar ? { url: form.avatar.trim() } : undefined,
+      password: form.password,
+      avatar: form.avatar ? { url: form.avatar.trim() } : undefined, // must be object
     };
 
     try {
       await AuthAPI.register(payload);
-      // Go to login after successful registration
-      location.hash = "#/login";
+      location.hash = "#/login"; // redirect after register
     } catch (err) {
       errEl.textContent = err.message || "Registration failed.";
+      console.error("Register error:", err);
     }
   };
 }

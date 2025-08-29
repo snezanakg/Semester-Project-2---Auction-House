@@ -11,14 +11,20 @@ export async function api(path, { method = "GET", body } = {}) {
     headers: { "Content-Type": "application/json", ...authHeader() },
     body: body ? JSON.stringify(body) : undefined,
   });
-  const data = await res.json().catch(() => ({}));
+
+  let data = {};
+  try { data = await res.json(); } catch { /* ignore */ }
+
   if (!res.ok) {
-    const msg = data?.errors?.[0]?.message || data?.message || res.statusText;
+    const msg =
+      data?.errors?.[0]?.message ||
+      data?.message ||
+      data?.error ||
+      `HTTP ${res.status}`;
     throw new Error(msg);
   }
   return data;
 }
-
 export const AuthAPI = {
   register: (payload) => api(`/auth/register`, { method: "POST", body: payload }),
   login: (payload) => api(`/auth/login`, { method: "POST", body: payload }),
