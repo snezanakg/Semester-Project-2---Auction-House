@@ -1,0 +1,9 @@
+.card-yellow { background: #FFD321; border-radius: 16px; }
+.input-lg { height: 48px; }
+img.rounded { border-radius: 8px; }
+
+
+.container-narrow { max-width: 860px; margin: 0 auto; }
+
+
+:focus-visible { outline: 3px solid #1E40AF; outline-offset: 2px; }

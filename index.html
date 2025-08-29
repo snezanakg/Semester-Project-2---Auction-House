@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Auction House</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-light">
+  <header id="app-header" class="border-bottom bg-warning">
+    <nav class="container d-flex align-items-center justify-content-between py-2">
+      <a href="#/listings" class="navbar-brand fw-bold text-dark">AUCTION HOUSE</a>
+      <div class="d-flex gap-3 align-items-center">
+        <span id="creditsPill" class="badge text-bg-primary d-none"></span>
+        <a class="text-dark text-decoration-none" href="#/listings">Dashboard</a>
+        <a id="navCreate" class="text-dark text-decoration-none d-none" href="#/create">Post</a>
+        <a id="navProfile" class="text-dark text-decoration-none d-none" href="#/profile">Profile</a>
+        <a id="navLogin" class="btn btn-outline-dark btn-sm" href="#/login">Log in</a>
+        <button id="navLogout" class="btn btn-outline-dark btn-sm d-none">Log out</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="app" class="container my-4"></main>
+
+  <footer class="border-top bg-warning">
+    <div class="container small py-3">Copyright © 2025 AUCTION HOUSE. All rights reserved.</div>
+  </footer>
+
+  <script type="module" src="./js/router.js"></script>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
