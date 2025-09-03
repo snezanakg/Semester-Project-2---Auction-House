@@ -1,9 +1,11 @@
-//browse + search//
 import { ListingsAPI } from "../utils/api.js";
 import { highestBid, countdownText } from "../utils/format.js";
+import { ASSETS } from "../utils/assets.js";
 
-function card(l) {
-  const img = l.media?.[0]?.url || "https://placehold.co/600x400?text=Listing";
+const fallbacks = [ASSETS.listing1, ASSETS.listing2, ASSETS.listing3, ASSETS.listing4];
+
+function card(l, idx) {
+  const img = l.media?.[0]?.url || fallbacks[idx % fallbacks.length];
   const top = highestBid(l.bids);
   return `
   <div class="card mb-3">
@@ -31,6 +33,7 @@ export async function renderHome(app) {
     </div>
     <div id="list">Loading…</div>
   </div>`;
+
   const list = document.getElementById("list");
 
   async function load(q = "") {
@@ -38,15 +41,13 @@ export async function renderHome(app) {
     try {
       const res = await ListingsAPI.list(q);
       const items = res.data || res;
-      list.innerHTML = items.map(card).join("") || "<p>No listings yet.</p>";
+      list.innerHTML = items.map((l, i) => card(l, i)).join("") || "<p>No listings yet.</p>";
     } catch (e) {
       list.innerHTML = `<p class="text-danger">${e.message}</p>`;
     }
   }
 
-  document.getElementById("searchBtn").onclick = () => {
-    const q = document.getElementById("q").value.trim();
-    load(q);
-  };
+  document.getElementById("searchBtn").onclick = () => load(document.getElementById("q").value.trim());
   await load();
 }
+

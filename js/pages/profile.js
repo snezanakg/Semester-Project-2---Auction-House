@@ -1,5 +1,6 @@
 import { ProfileAPI } from "../utils/api.js";
 import { auth } from "../state/auth.js";
+import { ASSETS } from "../utils/assets.js";
 
 export async function renderProfile(app) {
   if (!auth.isLoggedIn()) { location.hash = "#/login"; return; }
@@ -16,7 +17,7 @@ export async function renderProfile(app) {
     wrap.innerHTML = `
     <div class="card card-yellow p-4">
       <div class="d-flex align-items-center gap-3 mb-3">
-        <img src="${p.avatar?.url || "https://placehold.co/96"}" class="rounded-circle" width="64" height="64" alt="">
+        <img src="${p.avatar?.url || ASSETS.avatarDefault}" class="rounded-circle" width="64" height="64" alt="">
         <div><h4 class="m-0">${p.name}</h4><div class="text-muted small">${p.email || ""}</div></div>
       </div>
 
@@ -47,16 +48,12 @@ export async function renderProfile(app) {
       </ul>
     </div>`;
 
-    // avatar update
     document.getElementById("avatarForm").onsubmit = async (e) => {
       e.preventDefault();
       const url = new FormData(e.target).get("avatar")?.trim();
       if (!url) return;
-      try {
-        await ProfileAPI.update(name, { avatar: { url } });
-        auth.setAvatar(url);
-        location.reload();
-      } catch (e) { alert(e.message); }
+      try { await ProfileAPI.update(name, { avatar: { url } }); auth.setAvatar(url); location.reload(); }
+      catch (e) { alert(e.message); }
     };
   } catch (e) { wrap.innerHTML = `<p class="text-danger">${e.message}</p>`; }
 }

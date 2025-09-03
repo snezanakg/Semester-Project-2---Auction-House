@@ -1,7 +1,7 @@
-//single + bid + owner actions//
 import { ListingsAPI } from "../utils/api.js";
 import { auth } from "../state/auth.js";
 import { highestBid, formatDateTime } from "../utils/format.js";
+import { ASSETS } from "../utils/assets.js";
 
 export async function renderListing(app, id) {
   app.innerHTML = `<div class="container-narrow" id="wrap">Loading…</div>`;
@@ -10,7 +10,7 @@ export async function renderListing(app, id) {
   try {
     const res = await ListingsAPI.byId(id);
     const l = res.data || res;
-    const img = l.media?.[0]?.url || "https://placehold.co/800x450?text=Listing";
+    const img = l.media?.[0]?.url || ASSETS.listing3;
     const top = highestBid(l.bids);
     const isOwner = auth.user?.name && l.seller?.name === auth.user.name;
     const ended = Date.now() >= new Date(l.endsAt).getTime();
@@ -49,7 +49,6 @@ export async function renderListing(app, id) {
       ` : `<p class="text-muted">${ended ? "This auction has ended." : "Log in to bid."}${isOwner ? " You can't bid on your own listing." : ""}</p>`}
     </div>`;
 
-    // delete
     const delBtn = document.getElementById("delBtn");
     if (delBtn) {
       delBtn.onclick = async () => {
@@ -59,7 +58,6 @@ export async function renderListing(app, id) {
       };
     }
 
-    // bid
     const form = document.getElementById("bidForm");
     if (form) {
       form.onsubmit = async (e) => {

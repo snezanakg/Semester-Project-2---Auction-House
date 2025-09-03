@@ -19,36 +19,29 @@ export async function renderLogin(app) {
   const err = document.getElementById("err");
 
   f.onsubmit = async (e) => {
-    e.preventDefault();
-    err.textContent = "";
-
-    const { email, password } = Object.fromEntries(new FormData(f));
+    e.preventDefault(); err.textContent = "";
+    const fd = Object.fromEntries(new FormData(f));
+    const email = (fd.email || "").trim().toLowerCase();
+    const password = fd.password || "";
 
     try {
       const res = await AuthAPI.login({ email, password });
 
-      // Handle both shapes from Noroff v2 API
       const user = res?.data || res;
-      const accessToken =
-        res?.meta?.accessToken ||
-        user?.accessToken ||
-        res?.accessToken;
-
+      const accessToken = res?.meta?.accessToken || user?.accessToken || res?.accessToken;
       if (!accessToken) throw new Error("Missing access token from API.");
 
       auth.login({
         accessToken,
         name: user?.name,
         email: user?.email || email,
-        avatar: user?.avatar, // { url }
+        avatar: user?.avatar,
         credits: user?.credits,
       });
-
-      location.hash = "#/listings"; // go to dashboard
+      location.hash = "#/listings";
     } catch (e2) {
       err.textContent = e2.message || "Login failed.";
       console.error("Login error:", e2);
     }
   };
 }
-

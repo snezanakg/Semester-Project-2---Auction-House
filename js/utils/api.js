@@ -1,4 +1,4 @@
-const BASE_URL = "https://v2.api.noroff.dev"; 
+const BASE_URL = "https://v2.api.noroff.dev";
 
 function authHeader() {
   const token = localStorage.getItem("ah_token");
@@ -25,6 +25,7 @@ export async function api(path, { method = "GET", body } = {}) {
   }
   return data;
 }
+
 export const AuthAPI = {
   register: (payload) => api(`/auth/register`, { method: "POST", body: payload }),
   login: (payload) => api(`/auth/login`, { method: "POST", body: payload }),
