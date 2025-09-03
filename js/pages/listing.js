@@ -10,7 +10,7 @@ export async function renderListing(app, id) {
   try {
     const res = await ListingsAPI.byId(id);
     const l = res.data || res;
-    const img = l.media?.[0]?.url || ASSETS.listing3;
+    const img = l.media?.[0]?.url || ASSETS.listing3; // fallback
     const top = highestBid(l.bids);
     const isOwner = auth.user?.name && l.seller?.name === auth.user.name;
     const ended = Date.now() >= new Date(l.endsAt).getTime();
@@ -25,7 +25,8 @@ export async function renderListing(app, id) {
             <button id="delBtn" class="btn btn-sm btn-outline-danger">Delete</button>
           </div>` : ``}
       </div>
-      <img src="${img}" class="img-fluid rounded mb-3" alt="">
+      <img src="${img}" class="img-fluid rounded mb-3" alt=""
+           onerror="this.onerror=null;this.src='${ASSETS.listing3}';">
       <p>${l.description ?? ""}</p>
       <p class="mb-1"><span class="fw-semibold">Current:</span> ${top} cr</p>
       <p class="text-muted small mb-3">Ends: ${formatDateTime(l.endsAt)}</p>

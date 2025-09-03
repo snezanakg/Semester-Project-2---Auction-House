@@ -12,9 +12,9 @@ const routes = {
   "/listings": renderHome,
   "/login": renderLogin,
   "/register": renderRegister,
-  "/listing": renderListing,   // /listing/:id
+  "/listing": renderListing,
   "/create": renderCreate,
-  "/edit": renderEdit,         // /edit/:id
+  "/edit": renderEdit,
   "/profile": renderProfile,
 };
 
