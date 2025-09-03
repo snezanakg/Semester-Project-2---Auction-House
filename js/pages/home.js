@@ -4,13 +4,21 @@ import { ASSETS } from "../utils/assets.js";
 
 const fallbacks = [ASSETS.listing1, ASSETS.listing2, ASSETS.listing3, ASSETS.listing4];
 
+function safeImg(url, fallback) {
+  return url || fallback;
+}
+
 function card(l, idx) {
-  const img = l.media?.[0]?.url || fallbacks[idx % fallbacks.length];
+  const imgUrl = safeImg(l.media?.[0]?.url, fallbacks[idx % fallbacks.length]);
   const top = highestBid(l.bids);
+
   return `
   <div class="card mb-3">
     <div class="row g-0">
-      <div class="col-4"><img alt="" src="${img}" class="img-fluid rounded-start"></div>
+      <div class="col-4">
+        <img alt="" src="${imgUrl}" class="img-fluid rounded-start"
+             onerror="this.onerror=null;this.src='${fallbacks[idx % fallbacks.length]}';">
+      </div>
       <div class="col-8">
         <div class="card-body">
           <h5 class="card-title">${l.title}</h5>
@@ -23,31 +31,3 @@ function card(l, idx) {
     </div>
   </div>`;
 }
-
-export async function renderHome(app) {
-  app.innerHTML = `
-  <div class="container-narrow">
-    <div class="input-group mb-3">
-      <input id="q" class="form-control" placeholder="Search listings...">
-      <button id="searchBtn" class="btn btn-outline-secondary">Search</button>
-    </div>
-    <div id="list">Loading…</div>
-  </div>`;
-
-  const list = document.getElementById("list");
-
-  async function load(q = "") {
-    list.textContent = "Loading…";
-    try {
-      const res = await ListingsAPI.list(q);
-      const items = res.data || res;
-      list.innerHTML = items.map((l, i) => card(l, i)).join("") || "<p>No listings yet.</p>";
-    } catch (e) {
-      list.innerHTML = `<p class="text-danger">${e.message}</p>`;
-    }
-  }
-
-  document.getElementById("searchBtn").onclick = () => load(document.getElementById("q").value.trim());
-  await load();
-}
-

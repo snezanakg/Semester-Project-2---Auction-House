@@ -1,18 +1,21 @@
 export const ASSETS = {
-  logo: "./assets/gavel.png",
-  banner: "./assets/auction-banner.png",
-  listing1: "./assets/keith.png",
-  listing2: "./assets/warhol.png",
-  listing3: "./assets/lichtenstein.png",
-  listing4: "./assets/basquiat.png",
-  gallery1: "./assets/image8.png",
-  gallery2: "./assets/image9.png",
-  avatarDefault: "./assets/image10.png",
+  // Branding
+  logo: "./css/assets/gavel.png",
+  banner: "./css/assets/auction-banner.png",
+
+  // Art listings (fallbacks)
+  listing1: "./css/assets/keith.png",          // Keith Haring
+  listing2: "./css/assets/warhol.png",         // Andy Warhol
+  listing3: "./css/assets/lichtenstein.png",   // Roy Lichtenstein
+  listing4: "./css/assets/basquiat.png",       // Basquiat
+
+  // Extra gallery / decorative images
+  gallery1: "./css/assets/image8.png",
+  gallery2: "./css/assets/image9.png",
+
+  // Default avatar (when user has none)
+  avatarDefault: "./css/assets/image10.png",
 };
-
-
-
-
 
 
 
