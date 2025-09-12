@@ -16,3 +16,21 @@ mountHeader();
     router();
   }
 })();
+// Mobile menu toggle
+(function attachHamburger() {
+  const btn = document.getElementById("navToggle");
+  const menu = document.getElementById("navMenu");
+  if (!btn || !menu) return;
+
+  btn.addEventListener("click", () => {
+    const open = menu.classList.contains("d-none");
+    menu.classList.toggle("d-none", !open);
+    btn.setAttribute("aria-expanded", String(open));
+  });
+
+  // Close menu on route change
+  window.addEventListener("hashchange", () => {
+    menu.classList.add("d-none");
+    btn.setAttribute("aria-expanded", "false");
+  });
+})();

@@ -9,36 +9,41 @@
 </head>
 <body class="bg-light">
 
-  <!-- Solid yellow header (Figma) -->
-  <header class="border-bottom site-nav">
-    <nav class="container d-flex align-items-center justify-content-between py-2" aria-label="Main">
-      <div class="d-flex align-items-center gap-3">
-        <img src="./css/assets/gavel.png" alt="Auction House" width="36" height="36">
-        <a href="#/listings" class="navbar-brand fw-bold text-dark m-0">AUCTION HOUSE</a>
+<header class="border-bottom site-nav">
+  <nav class="container d-flex align-items-center justify-content-between py-2" aria-label="Main">
+    <!-- Left: brand + user block -->
+    <div class="d-flex align-items-center gap-3">
+      <img src="./css/assets/gavel.png" alt="Auction House" width="36" height="36">
+      <a href="#/listings" class="navbar-brand fw-bold text-dark m-0">AUCTION HOUSE</a>
 
-        <!-- Figma-style user block -->
-        <div id="userBlock" class="d-none d-md-flex align-items-center gap-2 user-block">
-          <img id="userAvatar" src="" alt="" class="rounded-circle" width="40" height="40">
-          <div class="user-meta">
-            <div id="userName" class="fw-semibold small">Username</div>
-            <div id="userEmail" class="text-muted small">user@stud.noroff.no</div>
-            <div id="userCreditsInline" class="small">Credits: 0</div>
-          </div>
+      <!-- Figma-style user block (auto hidden on mobile) -->
+      <div id="userBlock" class="d-none d-md-flex align-items-center gap-2 user-block">
+        <img id="userAvatar" src="" alt="" class="rounded-circle" width="40" height="40">
+        <div class="user-meta">
+          <div id="userName" class="fw-semibold small">Username</div>
+          <div id="userEmail" class="text-muted small">user@stud.noroff.no</div>
+          <div id="userCreditsInline" class="small">Credits: 0</div>
         </div>
       </div>
+    </div>
 
-      <div class="d-flex gap-3 align-items-center">
-        <span id="creditsPill" class="badge text-bg-primary d-none"></span>
-        <a class="text-dark text-decoration-none" href="#/listings">Dashboard</a>
-        <a id="navCreate" class="text-dark text-decoration-none d-none" href="#/create">Post</a>
-        <a id="navProfile" class="text-dark text-decoration-none d-none" href="#/profile">Profile</a>
-        <a id="navLogin" class="btn btn-outline-dark btn-sm" href="#/login">Log in</a>
-        <!-- NEW: Sign up button visible when logged out -->
-        <a id="navRegister" class="btn btn-dark btn-sm" href="#/register">Sign up</a>
-        <button id="navLogout" class="btn btn-outline-dark btn-sm d-none" type="button">Log out</button>
-      </div>
-    </nav>
-  </header>
+    <!-- Right: hamburger on mobile -->
+    <button id="navToggle" class="nav-toggle d-md-none" aria-expanded="false" aria-controls="navMenu" aria-label="Menu">
+      ☰
+    </button>
+
+    <!-- Collapsible menu -->
+    <div id="navMenu" class="nav-menu d-none d-md-flex align-items-center gap-3">
+      <span id="creditsPill" class="badge text-bg-primary d-none"></span>
+      <a class="text-dark text-decoration-none" href="#/listings">Dashboard</a>
+      <a id="navCreate" class="text-dark text-decoration-none d-none" href="#/create">Post</a>
+      <a id="navProfile" class="text-dark text-decoration-none d-none" href="#/profile">Profile</a>
+      <a id="navLogin" class="btn btn-outline-dark btn-sm" href="#/login">Log in</a>
+      <a id="navRegister" class="btn btn-dark btn-sm" href="#/register">Sign up</a>
+      <button id="navLogout" class="btn btn-outline-dark btn-sm d-none" type="button">Log out</button>
+    </div>
+  </nav>
+</header>
 
 
 
