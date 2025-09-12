@@ -16,7 +16,7 @@
       <img src="./css/assets/gavel.png" alt="Auction House" width="36" height="36">
       <a href="#/listings" class="navbar-brand fw-bold text-dark m-0">AUCTION HOUSE</a>
 
-      <!-- Figma-style user block (auto hidden on mobile) -->
+      <!-- User block (hidden on small screens) -->
       <div id="userBlock" class="d-none d-md-flex align-items-center gap-2 user-block">
         <img id="userAvatar" src="" alt="" class="rounded-circle" width="40" height="40">
         <div class="user-meta">
@@ -27,13 +27,13 @@
       </div>
     </div>
 
-    <!-- Right: hamburger on mobile -->
+    <!-- Right: hamburger toggle (only visible on mobile) -->
     <button id="navToggle" class="nav-toggle d-md-none" aria-expanded="false" aria-controls="navMenu" aria-label="Menu">
       ☰
     </button>
 
-    <!-- Collapsible menu -->
-    <div id="navMenu" class="nav-menu d-none d-md-flex align-items-center gap-3">
+    <!-- Nav menu (visible by default on desktop, hidden on mobile until toggled) -->
+    <div id="navMenu" class="nav-menu d-flex align-items-center gap-3">
       <span id="creditsPill" class="badge text-bg-primary d-none"></span>
       <a class="text-dark text-decoration-none" href="#/listings">Dashboard</a>
       <a id="navCreate" class="text-dark text-decoration-none d-none" href="#/create">Post</a>
@@ -45,9 +45,7 @@
   </nav>
 </header>
 
-
-
-  <section class="hero-banner">
+<section class="hero-banner">
     <div class="container py-5 text-center">
       <img src="./css/assets/auction-banner.png" class="img-fluid rounded" alt="Auction banner">
     </div>

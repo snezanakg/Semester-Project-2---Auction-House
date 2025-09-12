@@ -16,21 +16,20 @@ mountHeader();
     router();
   }
 })();
-// Mobile menu toggle
 (function attachHamburger() {
   const btn = document.getElementById("navToggle");
   const menu = document.getElementById("navMenu");
   if (!btn || !menu) return;
 
   btn.addEventListener("click", () => {
-    const open = menu.classList.contains("d-none");
-    menu.classList.toggle("d-none", !open);
-    btn.setAttribute("aria-expanded", String(open));
+    menu.classList.toggle("show");
+    const expanded = menu.classList.contains("show");
+    btn.setAttribute("aria-expanded", String(expanded));
   });
 
-  // Close menu on route change
+  // Auto-close menu on navigation
   window.addEventListener("hashchange", () => {
-    menu.classList.add("d-none");
+    menu.classList.remove("show");
     btn.setAttribute("aria-expanded", "false");
   });
 })();

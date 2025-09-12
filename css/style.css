@@ -1,121 +1,128 @@
+/* ------------------------------
+   Variables (Figma palette)
+------------------------------ */
 :root{
-  --yellow:#FFD321;
-  --blue:#2563EB;
-  --text:#111827;
-  --muted:#6B7280;
+  --yellow:#FFD321;     /* header + cards */
+  --blue:#2563EB;       /* primary buttons */
+  --text:#111827;       /* body text */
+  --muted:#6B7280;      /* secondary text */
+  --border:#E5E7EB;     /* subtle borders */
 }
-.site-nav {
+
+/* ------------------------------
+   Base
+------------------------------ */
+html, body { height: 100%; }
+body { color: var(--text); background: #f8f9fa; }
+a { text-decoration: none; }
+:focus-visible { outline: 3px solid #1E40AF; outline-offset: 2px; }
+.container-narrow { max-width: 860px; margin: 0 auto; }
+.input-lg { height: 48px; }
+
+/* ------------------------------
+   Header (solid yellow, Figma)
+------------------------------ */
+.site-nav{
   background: var(--yellow);
   color: var(--text);
+  position: sticky; top: 0; z-index: 1000;
+  border-bottom: 1px solid var(--border);
 }
+.site-nav a, .site-nav .navbar-brand { color: var(--text) !important; }
+.site-nav img[alt="Auction House"] { filter: drop-shadow(0 1px 0 rgba(255,255,255,.4)); }
 
-.site-nav a, 
-.site-nav .navbar-brand { 
-  color: var(--text) !important; 
-}
-.card-yellow { background: var(--yellow); border-radius: 16px; }
-.input-lg { height: 48px; }
-.container-narrow { max-width: 860px; margin: 0 auto; }
+/* User block next to brand */
+.user-block .user-meta > div{ line-height: 1.1; }
+
+/* ------------------------------
+   Hero (optional banner section)
+------------------------------ */
+.hero-banner { background:#fff; border-bottom:1px solid var(--border); }
+.hero-banner img { max-height: 280px; object-fit: contain; }
+
+/* ------------------------------
+   Buttons (primary = Figma blue)
+------------------------------ */
 .btn-primary{ background: var(--blue); border-color: var(--blue); }
 .btn-primary:hover{ filter: brightness(.95); }
-.user-block .user-meta > div{ line-height: 1.1; }
-:focus-visible { outline: 3px solid #1E40AF; outline-offset: 2px; }
+.btn-outline-dark:hover{ background:#000; color:#fff !important; }
 
-/* Keep listing card thumbnails neat, not stretched */
+/* ------------------------------
+   Cards (yellow variant for key blocks)
+------------------------------ */
+.card-yellow { background: var(--yellow); border-radius: 16px; border: none; }
+
+/* Listing cards: keep thumbnails tidy */
 .card .col-4 img{
   width: 100%;
-  height: 180px;
+  height: 200px;          /* tweak to 180/220 to match Figma exactly */
   object-fit: cover;
   border-top-left-radius: .375rem;
   border-bottom-left-radius: .375rem;
 }
 
-/* Optional: reduce banner effect on small screens */
-@media (max-width: 576px){
-  .site-nav{ background-size: cover; }
-}
-/* Header = solid yellow (Figma) */
-.site-nav {
-  background: var(--yellow);
-  color: var(--text);
-}
-.site-nav a, .site-nav .navbar-brand {
-  color: var(--text) !important;
-}
+/* ------------------------------
+   Footer
+------------------------------ */
+footer.bg-warning { background: var(--yellow) !important; }
 
-/* Hero/banner section */
-.hero-banner {
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-}
-.hero-banner img {
-  max-height: 280px;
-  object-fit: contain;
-}
-/* Fix header navigation on mobile */
-.site-nav nav {
-  flex-wrap: wrap; /* allow wrapping */
-}
+/* ------------------------------
+   NAV MENU (desktop + mobile hamburger)
+------------------------------ */
+/* Default = visible on desktop */
+.nav-menu { display: flex !important; }
 
-.site-nav .d-flex {
-  flex-wrap: wrap; /* buttons go to next line if needed */
-}
-
-@media (max-width: 768px) {
-  .site-nav nav {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .site-nav .d-flex.gap-3 {
-    flex-direction: column;
-    width: 100%;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-
-  .site-nav .btn,
-  .site-nav a {
-    width: 100%;       /* make buttons full width */
-    text-align: center;
-  }
-}
-/* keep header clickable and yellow */
-.site-nav { background: var(--yellow); position: sticky; top: 0; z-index: 1000; }
-.site-nav a, .site-nav .navbar-brand { color: var(--text) !important; }
-
-/* hamburger button */
-.nav-toggle {
+/* Hamburger button (shown on mobile via HTML class d-md-none) */
+.nav-toggle{
   background: transparent;
   border: 0;
   font-size: 1.75rem;
   line-height: 1;
   padding: .25rem .5rem;
+  cursor: pointer;
 }
 
-/* collapsible menu container */
-.nav-menu.d-none { display: none !important; }
-
-/* desktop */
-@media (min-width: 768px) {
-  .nav-menu { display: flex !important; }
-}
-
-/* mobile */
-@media (max-width: 767.98px) {
-  .site-nav nav {
+/* Mobile layout */
+@media (max-width: 767.98px){
+  .site-nav nav{
     flex-wrap: wrap;
     align-items: center;
   }
-  .nav-menu {
+
+  /* Hide menu by default on mobile, show when .show is toggled by JS */
+  .nav-menu{
+    display: none !important;
     width: 100%;
     flex-direction: column;
     align-items: stretch;
     gap: .5rem;
     margin-top: .5rem;
   }
-  .nav-menu a, .nav-menu .btn {
+  .nav-menu.show{ display: flex !important; }
+
+  /* Full-width actions for easy tapping */
+  .nav-menu a,
+  .nav-menu .btn{
     width: 100%;
     text-align: center;
   }
+
+  /* Optionally hide user block on tiny screens (already d-none d-md-flex in HTML) */
 }
+
+/* ------------------------------
+   Forms & small tweaks
+------------------------------ */
+.form-control::placeholder{ color: var(--muted); }
+.text-muted{ color: var(--muted) !important; }
+.badge.text-bg-primary{
+  background: var(--blue) !important;
+}
+
+/* ------------------------------
+   Utility helpers
+------------------------------ */
+.shadow-soft{ box-shadow: 0 6px 18px rgba(0,0,0,.06); }
+.rounded-16{ border-radius:16px; }
+.border-subtle{ border-color: var(--border) !important; }
+
