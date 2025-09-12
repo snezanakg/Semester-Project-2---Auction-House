@@ -12,6 +12,9 @@ export async function renderLogin(app) {
         <button class="btn btn-primary btn-lg" type="submit">Submit</button>
         <p id="err" class="text-danger small m-0" role="alert"></p>
       </form>
+      <p class="small mt-3 mb-0">
+        No account? <a href="#/register" class="fw-semibold text-dark">Create one</a>
+      </p>
     </div>
   </div>`;
 

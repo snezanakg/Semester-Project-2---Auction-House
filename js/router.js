@@ -12,9 +12,9 @@ const routes = {
   "/listings": renderHome,
   "/login": renderLogin,
   "/register": renderRegister,
-  "/listing": renderListing,
+  "/listing": renderListing,   // /listing/:id
   "/create": renderCreate,
-  "/edit": renderEdit,
+  "/edit": renderEdit,         // /edit/:id
   "/profile": renderProfile,
 };
 
@@ -25,6 +25,7 @@ export function ensureDefaultHash() {
 export function mountHeader() {
   const creditsPill = document.getElementById("creditsPill");
   const navLogin = document.getElementById("navLogin");
+  const navRegister = document.getElementById("navRegister"); // NEW
   const navLogout = document.getElementById("navLogout");
   const navCreate = document.getElementById("navCreate");
   const navProfile = document.getElementById("navProfile");
@@ -40,7 +41,9 @@ export function mountHeader() {
       const u = auth.user || {};
       creditsPill.classList.remove("d-none");
       creditsPill.textContent = `${u.credits ?? 0} cr`;
+
       navLogin.classList.add("d-none");
+      navRegister?.classList.add("d-none");  // hide Sign up when logged in
       navLogout.classList.remove("d-none");
       navCreate.classList.remove("d-none");
       navProfile.classList.remove("d-none");
@@ -54,12 +57,14 @@ export function mountHeader() {
     } else {
       creditsPill.classList.add("d-none");
       navLogin.classList.remove("d-none");
+      navRegister?.classList.remove("d-none"); // show Sign up when logged out
       navLogout.classList.add("d-none");
       navCreate.classList.add("d-none");
       navProfile.classList.add("d-none");
       userBlock.classList.add("d-none");
     }
   }
+
   refresh();
   window.addEventListener("auth-changed", refresh);
   navLogout.onclick = () => auth.logout();
