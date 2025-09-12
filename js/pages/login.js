@@ -1,5 +1,6 @@
 import { AuthAPI } from "../utils/api.js";
 import { auth } from "../state/auth.js";
+import { createApiKeyIfMissing } from "../utils/api.js";
 
 export async function renderLogin(app) {
   app.innerHTML = `
@@ -12,9 +13,7 @@ export async function renderLogin(app) {
         <button class="btn btn-primary btn-lg" type="submit">Submit</button>
         <p id="err" class="text-danger small m-0" role="alert"></p>
       </form>
-      <p class="small mt-3 mb-0">
-        No account? <a href="#/register" class="fw-semibold text-dark">Create one</a>
-      </p>
+      <p class="small mt-3 mb-0">No account? <a href="#/register" class="fw-semibold text-dark">Create one</a></p>
     </div>
   </div>`;
 
@@ -29,7 +28,6 @@ export async function renderLogin(app) {
 
     try {
       const res = await AuthAPI.login({ email, password });
-
       const user = res?.data || res;
       const accessToken = res?.meta?.accessToken || user?.accessToken || res?.accessToken;
       if (!accessToken) throw new Error("Missing access token from API.");
@@ -41,6 +39,11 @@ export async function renderLogin(app) {
         avatar: user?.avatar,
         credits: user?.credits,
       });
+
+      // **requirement**
+      try { await createApiKeyIfMissing(); } 
+      catch (e) { console.warn("API key create failed:", e); }
+
       location.hash = "#/listings";
     } catch (e2) {
       err.textContent = e2.message || "Login failed.";
@@ -48,3 +51,4 @@ export async function renderLogin(app) {
     }
   };
 }
+
