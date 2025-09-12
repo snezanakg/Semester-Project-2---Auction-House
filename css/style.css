@@ -52,3 +52,31 @@
   max-height: 280px;
   object-fit: contain;
 }
+/* Fix header navigation on mobile */
+.site-nav nav {
+  flex-wrap: wrap; /* allow wrapping */
+}
+
+.site-nav .d-flex {
+  flex-wrap: wrap; /* buttons go to next line if needed */
+}
+
+@media (max-width: 768px) {
+  .site-nav nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-nav .d-flex.gap-3 {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .site-nav .btn,
+  .site-nav a {
+    width: 100%;       /* make buttons full width */
+    text-align: center;
+  }
+}
